@@ -2,8 +2,18 @@
 
 from fastapi import FastAPI
 from datetime import datetime
+import psycopg2
 
 app = FastAPI()
+
+# Connect to existing database
+conn = psycopg2.connect("dbname=eThyme user=eThyme_user password=eThyme_test port=9001")
+
+# Auto commit
+conn.set_session(autocommit=True)
+
+# Open a cursor to perform database operations
+curr = conn.cursor()
 
 global id
 id = 1
