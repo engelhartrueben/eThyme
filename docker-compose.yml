@@ -1,0 +1,39 @@
+---
+version: "0.1"
+services:
+  tailscale-eThyme:
+    image: tailscale/tailscale:latest
+    hostname: tailscale-eThyme
+    environment:
+      - TS_AUTHKEY=tskey-client-notAReal-OAuthClientSecret1Atawk
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - ${PWD}/tailscale-nginx/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+  postgres:
+    image: postgres:alpine
+    command: postgres -c 'max_connections=250'
+    restart: always
+    environment:
+      POSTGRES_DB: eThyme
+      POSTGRES_PASSWORD: eThyme_test
+      POSTGRES_USER: eThyme_user
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:9001
+  eThyme:
+    image: eThyme
+    depends_on:
+      - tailscale-eThyme
+    network_mode: service:tailscale-eThyme
+# Unsure about this ??
+volumes:
+  tailscale-eThyme:
+    driver: local
