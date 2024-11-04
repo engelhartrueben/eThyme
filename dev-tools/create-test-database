@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+
+docker compose exec -T postgres psql -h localhost -p 9001 -U eThyme_user eThyme <<EOF
+       CREATE DATABASE eThyme;
+       CREATE USER eThyme_user WITH PASSWORD 'eThyme_test';
+       GRANT ALL PRIVILEGES ON DATABASE eThyme TO eThyme_user;
+EOF
+
+docker-compose exec -T postgres psql -h localhost -p 9001 -U eThyme_user eThyme <<EOF
+       GRANT ALL ON SCHEMA public TO eThyme_user;
+EOF
