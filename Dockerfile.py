@@ -1,8 +1,8 @@
-From python:3.9
+FROM python:3.9
 
 WORKDIR /code
 
-copy ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /code/requirements.txt
 
 RUN pip install --no-cach-dir --upgrade -r /code/requirements.txt
 
