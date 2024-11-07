@@ -1,7 +1,0 @@
-FROM postgres:alpine
-
-RUN postres psql -h localhost -p 9001 -U eThyme_user eThyme
-RUN CREATE DATABASE eThyme;
-RUN CREATE USER eThyme_user WITH PASSWORD 'eThyme_test';
-RUN GRANT ALL PRIVILEGES ON DATABASE eThyme TO eThyme_user;
-RUN GRANT ALL ON SCHEMA public TO eThyme_user;
