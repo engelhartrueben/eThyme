@@ -15,32 +15,32 @@ conn.set_session(autocommit=True)
 # Open a cursor to perform database operations
 curr = conn.cursor()
 
-global id
-id = 1
+def id_gen():
+    num = 1
+    yield num
+    num += 1
 
 @app.get("/")
 def default_response():
-    # Eventually want response ID to be tracked in DB
     response = {
         "head": "Default Response. Cute.",
         "body": {
             "date": datetime.today(),
-            "response_id": id
+            "response_id": id_gen() 
         }
     }
-    id += 1
     return response
 
-@app.get("/timesheet/")
-def get_total_time():
+@app.get("/timesheet/{user_id}")
+def get_total_time(user_id: str):
     pass
 
-@app.get("/timesheet/clock/{range}")
+@app.get("/timesheet/clock/{start_day}/{end_day}")
 def get_time_in_range(range: str):
     pass
 
-@app.get("/timesheet/clock/last/")
-def return_last_clock_in():
+@app.get("/timesheet/clock/last/{user_id}")
+def return_last_clock_in(user_id: str):
     pass
 
 @app.put("/timesheet/clock/in/{time}")
