@@ -8,6 +8,8 @@ config = dotenv_values(".env")
 
 class DB:
     def __init__(self, dbname, user):
+        # cant use dot notation to get DB creds
+        # user bracket notation
         self.conn = psycopg.connect(f"dbname={config.DB_NAME} user={config.USER}")
         self.cur  = conn.cursor()
     
