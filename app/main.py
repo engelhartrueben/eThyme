@@ -1,13 +1,11 @@
 # main.py
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from datetime import datetime
-import psycopg2
 
 app = FastAPI()
 
 # Connect to existing database
-conn = psycopg2.connect("dbname=eThyme user=eThyme_user password=eThyme_test port=9001")
 
 # Auto commit
 conn.set_session(autocommit=True)
@@ -22,14 +20,7 @@ def id_gen():
 
 @app.get("/")
 def default_response():
-    response = {
-        "head": "Default Response. Cute.",
-        "body": {
-            "date": datetime.today(),
-            "response_id": id_gen() 
-        }
-    }
-    return response
+    pass
 
 @app.get("/timesheet/{user_id}")
 def get_total_time(user_id: str):
