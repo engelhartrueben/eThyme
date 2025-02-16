@@ -1,6 +1,7 @@
 # main.py
 
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 from datetime import datetime
 
 app = FastAPI()
