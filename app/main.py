@@ -1,9 +1,15 @@
 # main.py
 
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+
 from datetime import datetime
+from dotenv import dotenv_values
+
+config = dotenv_valuse(f"{os.getcwd}/.env")
 
 app = FastAPI()
 
