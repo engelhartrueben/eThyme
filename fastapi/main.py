@@ -32,6 +32,31 @@ def id_gen():
     yield num
     num += 1
 
+# Add some form of debouncing
+class AuthStatus(BaseModel):
+    "auth": string
+
+
+
+@app.post("/")
+def checkAuthStatus(rep: AuthStatus):
+    # If auth in data base, return success
+    pass
+
+
+
+
+
+
+
+
+
+
+
+"""
+Restarting this project. I know a lot more than I did a few months ago. Win.
+"""
+"""
 # Basic success message
 class Default(BaseModel):
     "message": "success"
@@ -95,3 +120,4 @@ def clock_in(time: str):
 @app.put("/timesheet/clock/out/{time}")
 def clock_out(time: str):
     pass
+"""
